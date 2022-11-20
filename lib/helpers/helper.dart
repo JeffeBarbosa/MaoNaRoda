@@ -59,12 +59,6 @@ class UserHelper {
     return user;
   }
 
-  Future getUser() async {
-    var dbCliente = db;
-    List<Map> list = await dbCliente.rawQuery("select name from user");
-    return list;
-  }
-
   Future<List<User>> listUsers() async {
     var dbClient = await db;
     List<User> users = [];
