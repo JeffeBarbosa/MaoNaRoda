@@ -1,8 +1,8 @@
 class User {
   int _id;
-  String _name;
-  String _email;
-  String _senha;
+  final String _name;
+  final String _email;
+  final String _senha;
 
   User(
     this._id,
@@ -24,5 +24,12 @@ class User {
       'email': _email,
       'senha': _senha,
     };
+  }
+
+  factory User.fromMap(Map<String, dynamic> json) {
+    return User(json['id'], json['name'], json['email'], json['senha']);
+  }
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(json['id'], json['name'], json['email'], json['senha']);
   }
 }

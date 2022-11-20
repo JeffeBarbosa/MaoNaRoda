@@ -12,7 +12,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 6), () {
+    Timer(Duration(seconds: 8), () {
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -24,26 +24,31 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Aguarde um pouco, isso pode demorar.....',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w200,
-              ),
+      body: Stack(
+        children: [
+          Container(color: Colors.amber),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Aguarde um pouco, isso pode demorar...',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.red),
+                  strokeWidth: 10.0,
+                ),
+              ],
             ),
-            SizedBox(
-              height: 20.0,
-            ),
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(Colors.red),
-              strokeWidth: 10.0,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

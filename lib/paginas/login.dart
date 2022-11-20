@@ -1,5 +1,5 @@
 import 'package:MaoNaRoda/helpers/helper.dart';
-import 'package:MaoNaRoda/paginas/home.dart';
+import 'package:MaoNaRoda/paginas/paginaPrincipal.dart';
 import 'package:flutter/material.dart';
 import 'package:MaoNaRoda/paginas/registro.dart';
 
@@ -33,8 +33,8 @@ class _LoginState extends State<Login> {
       var u = await userHelper.validateLogin(_email!, _senha!);
 
       if (u != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Home()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => principal(user: u)));
       } else {
         showDialog(
             context: context,
@@ -95,7 +95,7 @@ class _LoginState extends State<Login> {
             child: Center(
                 child: Container(
                     height: MediaQuery.of(context).size.height,
-                    color: Colors.greenAccent,
+                    color: Color.fromARGB(255, 175, 255, 45),
                     child: Padding(
                         padding: const EdgeInsets.all(36),
                         child: Form(
@@ -131,7 +131,8 @@ class _LoginState extends State<Login> {
                                     child: const Text("Registrar",
                                         style: TextStyle(
                                             fontSize: 25,
-                                            color: Colors.orange)))
+                                            color: Color.fromARGB(
+                                                255, 190, 29, 0))))
                               ],
                             )))))));
   }

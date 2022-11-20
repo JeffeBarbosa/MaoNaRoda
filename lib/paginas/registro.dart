@@ -67,77 +67,81 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 elevation: 8,
-                child: Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Registrar usuário",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w600,
+                child: Container(
+                  color: Color.fromARGB(255, 250, 180, 155),
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Registrar usuário",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        onSaved: (val) => _name = val.toString(),
-                        decoration: InputDecoration(labelText: "Nome"),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        onSaved: (val) => _email = val.toString(),
-                        decoration: InputDecoration(labelText: "E-mail"),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        onSaved: (val) => _senha = val.toString(),
-                        decoration: InputDecoration(labelText: "Senha"),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "Senha deve ter no mínimo 6 caracteres!",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(),
-                          ),
-                          TextButton(
-                            child: Text("Registrar"),
-                            onPressed: _registerUser,
-                          ),
-                          TextButton(
-                            child: Text("Fechar"),
-                            onPressed: _closeRegister,
-                          ),
-                        ],
-                      ),
-                    ],
+                        SizedBox(
+                          height: 15,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          onSaved: (val) => _name = val.toString(),
+                          decoration: InputDecoration(labelText: "Nome"),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        TextFormField(
+                          onSaved: (val) => _email = val.toString(),
+                          decoration: InputDecoration(labelText: "E-mail"),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          onSaved: (val) => _senha = val.toString(),
+                          decoration: InputDecoration(labelText: "Senha"),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Senha deve ter no mínimo 6 caracteres!",
+                          style:
+                              TextStyle(color: Color.fromARGB(255, 73, 73, 73)),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Expanded(
+                              child: Container(),
+                            ),
+                            TextButton(
+                              child: Text("Registrar"),
+                              onPressed: _registerUser,
+                            ),
+                            TextButton(
+                              child: Text("Fechar"),
+                              onPressed: _closeRegister,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

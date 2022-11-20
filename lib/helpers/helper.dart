@@ -25,26 +25,26 @@ class UserHelper {
   }
 
   Future<int> saveUser(User u) async {
-    var dbClient = await db;
+    var dbClient = db;
     int res = await dbClient.insert("user", u.toMap());
     return res;
   }
 
   Future<bool> updateUser(User u) async {
-    var dbClient = await db;
+    var dbClient = db;
     int res = await dbClient
         .update("user", u.toMap(), where: "id = ?", whereArgs: [u.id]);
     return res > 0 ? true : false;
   }
 
   Future<bool> deleteUser(User u) async {
-    var dbClient = await db;
+    var dbClient = db;
     int res = await dbClient.rawDelete("delete from user where id = ?", [u.id]);
     return res > 0 ? true : false;
   }
 
   Future<User?> validateLogin(String email, String senha) async {
-    var dbClient = await db;
+    var dbClient = db;
     User? user;
     List<Map> list = await dbClient.rawQuery(
         "select * from user where email = ? and senha = ?", [email, senha]);
@@ -56,7 +56,22 @@ class UserHelper {
         list[0]["senha"],
       );
     }
-
     return user;
+  }
+
+  Future getUser() async {
+    var dbCliente = db;
+    List<Map> list = await dbCliente.rawQuery("select name from user");
+    return list;
+  }
+
+  Future<List<User>> listUsers() async {
+    var dbClient = await db;
+    List<User> users = [];
+    List<Map> list = await dbClient.rawQuery("select * from user");
+    for (var u in list) {
+      users.add(User(u["id"], u["name"], u["email"], u["senha"]));
+    }
+    return users;
   }
 }
