@@ -50,6 +50,9 @@ class _principalState extends State<principal> {
         // adicionar um widget ListView(lista de itens(ListTile))
         child: ListView(
           children: [
+            UserAccountsDrawerHeader(
+                accountName: Text(widget.user!.name),
+                accountEmail: Text(widget.user!.email)),
             ListTile(
               title: Text('Backup'),
               leading: Icon(Icons.settings),
