@@ -68,23 +68,20 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 elevation: 8,
                 child: Container(
-                  color: Color.fromARGB(255, 250, 180, 155),
+                  color: Color.fromARGB(255, 224, 201, 193),
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Registrar usuário",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                            alignment: Alignment.topLeft,
+                            child: Text("Registrar usuário",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w600,
+                                ))),
                         SizedBox(
                           height: 15,
                         ),

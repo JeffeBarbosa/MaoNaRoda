@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:MaoNaRoda/helpers/helper.dart';
-import 'package:MaoNaRoda/servicos/http_service.dart';
 
 class principal extends StatefulWidget {
   final User? user;
@@ -68,30 +67,6 @@ class _principalState extends State<principal> {
                             Text(
                                 "Deseja realizar o backup dos \ndados no servidor?")
                           ]),
-                          actions: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  EasyLoading.show(status: 'Sincronizando...');
-                                  Future.delayed(Duration(seconds: 10),
-                                      () async {
-                                    List<User> users =
-                                        await userHelper.listUsers();
-                                    users.forEach((u) {
-                                      print(u.email);
-                                      print(HttpService.createUser(u));
-                                    });
-                                    EasyLoading.dismiss();
-                                  });
-
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Sim')),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Não')),
-                          ],
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25))));

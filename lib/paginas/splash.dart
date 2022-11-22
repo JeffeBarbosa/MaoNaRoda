@@ -26,10 +26,15 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(color: Colors.amber),
+          Container(color: Color.fromARGB(255, 175, 255, 45)),
+          Container(
+            width: 400,
+            height: 550,
+            child: Image.asset('assets/imagens/Logo.png'),
+          ),
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
                   'Aguarde um pouco, isso pode demorar...',
@@ -39,12 +44,18 @@ class _SplashState extends State<Splash> {
                   ),
                 ),
                 SizedBox(
-                  height: 20.0,
+                  height: 70.0,
                 ),
                 CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(Colors.red),
                   strokeWidth: 10.0,
                 ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Text('Desenvolvido por Jefferson e Eduardo',
+                    style:
+                        TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
               ],
             ),
           ),

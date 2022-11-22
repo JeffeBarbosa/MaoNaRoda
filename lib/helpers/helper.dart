@@ -58,14 +58,4 @@ class UserHelper {
     }
     return user;
   }
-
-  Future<List<User>> listUsers() async {
-    var dbClient = await db;
-    List<User> users = [];
-    List<Map> list = await dbClient.rawQuery("select * from user");
-    for (var u in list) {
-      users.add(User(u["id"], u["name"], u["email"], u["senha"]));
-    }
-    return users;
-  }
 }

@@ -105,9 +105,9 @@ class _LoginState extends State<Login> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 SizedBox(
-                                    height: 155,
-                                    child: Image.asset(
-                                        'assets/images/splash.png')),
+                                    height: 280,
+                                    child:
+                                        Image.asset('assets/imagens/Logo.png')),
                                 const SizedBox(
                                   height: 45,
                                 ),
