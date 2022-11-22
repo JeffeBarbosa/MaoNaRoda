@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:MaoNaRoda/paginas/login.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -37,7 +38,7 @@ class _SplashState extends State<Splash> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  'Aguarde um pouco, isso pode demorar...',
+                  FlutterI18n.translate(context, "splash_load"),
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold,
@@ -53,7 +54,7 @@ class _SplashState extends State<Splash> {
                 SizedBox(
                   height: 50.0,
                 ),
-                Text('Desenvolvido por Jefferson e Eduardo',
+                Text(FlutterI18n.translate(context, "splash_desenvolver"),
                     style:
                         TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold)),
               ],
