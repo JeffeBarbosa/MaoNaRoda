@@ -1,4 +1,18 @@
 {
     "splash_load": "Espera un momento, esto puede llevar ...",
-    "splash_desenvolver" : "Desarrollado por Jefferson y Eduardo"
+    "splash_desenvolver" : "Desarrollado por Jefferson y Eduardo",
+    "error_login_user" : "¡Usuario y/o contraseña no válidos!",
+    "error_register_email" : "¡El correo electrónico debe tener al menos 20 caracteres!",
+    "error_login_senha" : "¡Contraseña no válida!",
+    "login" : "Login",
+    "register" : "Registro",
+    "register_accept" : "¡Registro exitoso!",
+    "error_register_user" : "Error al registrar al usuario!",
+    "title_register" : "Registrar usuario",
+    "error_register_senha" : "¡La contraseña debe tener al menos 6 caracteres!",
+    "name" : "Nombre",
+    "senha" : "Contraseña",
+    "fechar" : "Cerrar",
+    "text_explication" : "InfInforma tu necesidad y te mostraremos el especialista más cercano para atenderteorme sua necessidade e lhe mostraremos o especialista mais próximo para lhe atender",
+    "futter_principal" : "PRONTO"
 }

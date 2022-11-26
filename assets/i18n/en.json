@@ -1,4 +1,18 @@
 {
     "splash_load": "Wait a while, this may take...",
-    "splash_desenvolver" : "Developed by Jefferson and Eduardo"
+    "splash_desenvolver" : "Developed by Jefferson and Eduardo",
+    "error_login_user" : "Invalid user and/or password!",
+    "error_register_email" : "Email must be at least 20 characters long!",
+    "error_login_senha" : "Invalid password!",
+    "login" : "Login",
+    "register" : "Register",
+    "register_accept" : "Successful registration!",
+    "error_register_user" : "Error registering user!",
+    "title_register" : "Register user",
+    "error_register_senha" : "Password must be at least 6 characters long!",
+    "name" : "Name",
+    "senha" : "Password",
+    "fechar" : "Close",
+    "text_explication" : "Inform your need and we will show you the nearest specialist to serve you",
+    "futter_principal" : "SOON"
 }

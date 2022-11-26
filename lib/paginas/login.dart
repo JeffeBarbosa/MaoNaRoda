@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:MaoNaRoda/helpers/helper.dart';
 import 'package:MaoNaRoda/paginas/paginaPrincipal.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +35,8 @@ class _LoginState extends State<Login> {
       var u = await userHelper.validateLogin(_email!, _senha!);
 
       if (u != null) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => principal(user: u)));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => principal()));
       } else {
         showDialog(
             context: context,
@@ -59,7 +61,7 @@ class _LoginState extends State<Login> {
       style: style,
       onSaved: (value) => _email = value,
       validator: (value) {
-        return value!.length < 15
+        return value!.length < 10
             ? "E-mail deve ter no mínimo 20 caracteres!"
             : null;
       },
@@ -124,11 +126,11 @@ class _LoginState extends State<Login> {
                                   child: Text("Login", style: style),
                                 ),
                                 const SizedBox(
-                                  height: 15,
+                                  height: 10,
                                 ),
                                 TextButton(
                                     onPressed: openRegister,
-                                    child: const Text("Registrar",
+                                    child: const Text("Register",
                                         style: TextStyle(
                                             fontSize: 25,
                                             color: Color.fromARGB(

@@ -1,4 +1,18 @@
 {
     "splash_load": "Aguarde um pouco, isso pode demorar...",
-    "splash_desenvolver" : "Desenvolvido por Jefferson e Eduardo"
+    "splash_desenvolver" : "Desenvolvido por Jefferson e Eduardo",
+    "error_login_user" : "Usuário e/ou senha inválidos!",
+    "error_register_email" : "E-mail deve ter no mínimo 20 caracteres!",
+    "error_login_senha" : "Senha inválida!",
+    "login" : "Logar",
+    "register" : "Registar",
+    "register_accept" : "Registro realizado com sucesso!",
+    "error_register_user" : "Erro ao registrar usuário!",
+    "title_register" : "Registrar usuário",
+    "error_register_senha" : "Senha deve ter no mínimo 6 caracteres!",
+    "name" : "Nome",
+    "senha" : "Senha",
+    "fechar" : "Fechar",
+    "text_explication" : "Informe sua necessidade e lhe mostraremos o especialista mais próximo para lhe atender",
+    "futter_principal" : "EM BREVE"
 }

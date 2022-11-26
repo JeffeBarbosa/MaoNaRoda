@@ -1,13 +1,6 @@
-import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:MaoNaRoda/helpers/user.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:MaoNaRoda/helpers/helper.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class principal extends StatefulWidget {
   final User? user;
@@ -18,74 +11,105 @@ class principal extends StatefulWidget {
 }
 
 class _principalState extends State<principal> {
-  var userHelper = UserHelper();
-
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(Duration.zero, () async {
-      await userHelper.open();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
-      body: Column(children: [
-        SizedBox(height: 20),
-        Container(
-          child: Container(
-              height: 250,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.yellow, borderRadius: BorderRadius.circular(100)
-                  //more than 50% of width makes circle
-                  )),
-        ),
-      ]),
-      drawer: Drawer(
-        // adicionar um widget ListView(lista de itens(ListTile))
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-                accountName: Text(widget.user!.name),
-                accountEmail: Text(widget.user!.email)),
-            ListTile(
-              title: Text('Backup'),
-              leading: Icon(Icons.settings),
-              trailing: Icon(Icons.arrow_forward),
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                          title: Text("Backup"),
-                          content: Row(children: [
-                            Icon(Icons.backup_outlined),
-                            Text(
-                                "Deseja realizar o backup dos \ndados no servidor?")
-                          ]),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))));
-                    });
-              },
+      backgroundColor: Color.fromARGB(255, 175, 255, 45),
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 4,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  width: MediaQuery.of(context).size.height / 2.3,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 150),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Text(
+                              "Mão na Roda",
+                              style: TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                FlutterI18n.translate(
+                                    context, "text_explication"),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(height: 70),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              child: Text(
+                                FlutterI18n.translate(
+                                    context, "futter_principal"),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    color: Color.fromARGB(255, 89, 143, 2)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            ListTile(
-              title: Text('Sair'),
-              leading: Icon(SimpleLineIcons.close),
-              onTap: () {
-                if (Platform.isAndroid) {
-                  SystemNavigator.pop();
-                } else if (Platform.isIOS) {
-                  exit(0);
-                }
-              },
+          ),
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 7,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height / 4,
+                  width: MediaQuery.of(context).size.height / 4,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 224, 201, 193),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 25.0,
+                        spreadRadius: 2,
+                      )
+                    ],
+                  ),
+                  child: Image.asset('assets/imagens/Logo.png'),
+                ),
+              ],
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
