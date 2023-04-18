@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "maonaroda" "\0"
+            VALUE "FileDescription", "mao" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "maonaroda" "\0"
+            VALUE "InternalName", "mao" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "maonaroda.exe" "\0"
-            VALUE "ProductName", "maonaroda" "\0"
+            VALUE "OriginalFilename", "mao.exe" "\0"
+            VALUE "ProductName", "mao" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
