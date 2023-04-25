@@ -48,7 +48,7 @@ Future<void> postData(int idcadastro, String descProfissao,
 class _PagePrestadorState extends State<PagePrestador> {
   late int idlast;
   Profissoes profissoes = Profissoes.EngenheiroAgronomo;
-  late int idprofissao;
+  int idprofissao = 1;
   TextEditingController descProfissao = TextEditingController();
 
   @override
@@ -82,7 +82,7 @@ class _PagePrestadorState extends State<PagePrestador> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Engenheiro Agronomo'),
+                child: const Text('Engenheiro Agrônomo'),
               ),
               Radio(
                 value: Profissoes.EngenheiroAgronomo,
@@ -111,7 +111,7 @@ class _PagePrestadorState extends State<PagePrestador> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Engenheiro Hidríco'),
+                child: const Text('Engenheiro Hídrico'),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
@@ -168,14 +168,14 @@ class _PagePrestadorState extends State<PagePrestador> {
                   });
                 },
               ),
-              const Text('Técnico Agricola'),
+              const Text('Técnico Agrícola'),
             ],
           ),
           Row(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Veterinario'),
+                child: const Text('Veterinário'),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(69, 0, 0, 0),

@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:mao/pages/PagePrestador.dart';
 import 'package:mao/pages/pagePrincipal.dart';
+import 'package:mao/pages/pagePrincipalPrestador.dart';
 import 'package:mao/pages/registerPage.dart';
 import 'package:http/http.dart' as http;
 
@@ -96,10 +97,14 @@ class _LoginPageState extends State<LoginPage> {
                     if (jsonResponse.isNotEmpty) {
                       id = jsonResponse[0]['idcadastro'];
                       nome = jsonResponse[0]['nome'];
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PagePrincipal(id, nome)));
+                      if(jsonResponse[0]['tipo_cadastro'] == '1'){ 
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                               builder: (context) => PagePrincipal(id, nome)));
+                      }else{
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => PagePrincipalPrestador(id, nome)));
+                      }
                     } else {
                       alertLogin(context, "Email ou senha invalidos");
                     }
