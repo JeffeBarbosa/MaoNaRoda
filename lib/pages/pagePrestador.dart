@@ -63,7 +63,7 @@ class _PagePrestadorState extends State<PagePrestador> {
             decoration: InputDecoration(
               border:
                   OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              labelText: 'Informe suas formações profissionais',
+              labelText: 'Informe suas expecificações técnicas',
             ),
             maxLines: 10,
             controller: descProfissao,
@@ -72,17 +72,17 @@ class _PagePrestadorState extends State<PagePrestador> {
       ),
       Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
-            child: const Center(
+          const Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+            child: Center(
                 child:
                     Text("Escolha a profissão desejada a prestar o serviço")),
           ),
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('Engenheiro Agrônomo'),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Engenheiro Agrônomo'),
               ),
               Radio(
                 value: Profissoes.EngenheiroAgronomo,
@@ -109,9 +109,9 @@ class _PagePrestadorState extends State<PagePrestador> {
           ),
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('Engenheiro Hídrico'),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Engenheiro Hídrico'),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
@@ -141,9 +141,9 @@ class _PagePrestadorState extends State<PagePrestador> {
           ),
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('Serviços de Drone'),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Serviços de Drone'),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
@@ -173,9 +173,9 @@ class _PagePrestadorState extends State<PagePrestador> {
           ),
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text('Veterinário'),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text('Veterinário'),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(69, 0, 0, 0),
@@ -229,6 +229,7 @@ class _PagePrestadorState extends State<PagePrestador> {
             if (descProfissao.text.isNotEmpty) {
               postData(
                   idlast, profissoes.toString(), formProfissao, idprofissao);
+
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -249,14 +250,14 @@ class _PagePrestadorState extends State<PagePrestador> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Erro ao Registrar"),
+          title: const Text("Erro ao Registrar"),
           content: Text(texto),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("OK"),
+              child: const Text("OK"),
             ),
           ],
         );

@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     int id;
     String nome;
+    String tipo_cadastro;
 
     return Scaffold(
       body: ListView(children: <Widget>[
@@ -97,15 +98,23 @@ class _LoginPageState extends State<LoginPage> {
                     if (jsonResponse.isNotEmpty) {
                       id = jsonResponse[0]['idcadastro'];
                       nome = jsonResponse[0]['nome'];
-                      if(jsonResponse[0]['tipo_cadastro'] == '1'){ 
+                      tipo_cadastro =  jsonResponse[0]['tipo_cadastro'];
+                      if (tipo_cadastro == '1') {
+                        // ignore: use_build_context_synchronously
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                               builder: (context) => PagePrincipal(id, nome)));
-                      }else{
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => PagePrincipalPrestador(id, nome)));
+                                builder: (context) => PagePrincipal(id, nome, tipo_cadastro)));
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PagePrincipalPrestador(id, nome, tipo_cadastro)));
                       }
                     } else {
+                      // ignore: use_build_context_synchronously
                       alertLogin(context, "Email ou senha invalidos");
                     }
                   }
@@ -143,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-          prefixIcon: Icon(Icons.lock),
+          prefixIcon: const Icon(Icons.lock),
           labelText: 'Digite seu Senha',
         ),
         controller: senhaController,

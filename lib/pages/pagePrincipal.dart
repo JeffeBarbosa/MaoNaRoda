@@ -1,18 +1,22 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:mao/models/userModel.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:mao/pages/pageHistoricoContratacao.dart';
 
+import 'package:mao/models/userModel.dart';
+import 'package:mao/pages/pageHistoricoContratacao.dart';
+import 'package:mao/pages/pagePrincipalPrestador.dart';
+
+// ignore: must_be_immutable
 class PagePrincipal extends StatefulWidget {
   int id;
   String nome;
-  PagePrincipal(this.id, this.nome);
+  String tipo_cadastro;
+  PagePrincipal(this.id, this.nome, this.tipo_cadastro);
+  late int quatidade;
   @override
   State<PagePrincipal> createState() => _PagePrincipalState();
 }
@@ -37,6 +41,7 @@ Future<void> postData(int idcadastro, int idcontratado) async {
 class _PagePrincipalState extends State<PagePrincipal> {
   late Future<List<UserModel>> usermodel;
   double rating = 0;
+  double media = 0;
 
   @override
   void initState() {
@@ -51,25 +56,7 @@ class _PagePrincipalState extends State<PagePrincipal> {
       appBar: AppBar(
         title: Text('Serviços para a Agricultura'),
       ),
-      drawer: Drawer(
-        backgroundColor: Color.fromRGBO(185, 136, 62, 1),
-        child: Column(children: [
-          ListTile(
-            title: Center(
-              child: Text(
-                'Bem vindo ',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ),ListTile( title: Center(
-            child: Text(widget.nome,
-                style: TextStyle(
-                    fontSize: 15, color: Color.fromARGB(255, 66, 33, 23))),
-          ),),
-          ListTile(title: Text('Pagina de Contratação'), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PagePrincipal(widget.id, widget.nome))) ,),
-          ListTile(title: Text('Historico de Contratação'), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PageHistoricoContratacao(widget.id, widget.nome))) ,)
-        ]
-        )),
+      drawer: _menu(),
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -98,10 +85,13 @@ class _PagePrincipalState extends State<PagePrincipal> {
                         trailing: SizedBox(
                           width: 150,
                           child: Row(
-                            children: <Widget>[ 
-                               IconButton(
+                            children: <Widget>[
+                              IconButton(
                                   color: Colors.blue,
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    media = await avaliacao(
+                                        usermodel.idprofissional);
+                                    // ignore: use_build_context_synchronously
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -110,7 +100,7 @@ class _PagePrincipalState extends State<PagePrincipal> {
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20)),
-                                          title: Text(widget.id.toString()),
+                                          title: Text(usermodel.nome),
                                           content: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -118,13 +108,54 @@ class _PagePrincipalState extends State<PagePrincipal> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  Text('Telefone:'),
-                                                  Text(usermodel.idprofissional
-                                                      .toString()),
+                                                  Text(
+                                                      'Telefone: ${usermodel.telefone.toString()}'),
                                                 ],
-                                              ),RatingBar.builder(itemBuilder: (context, _)=> Icon(Icons.star, color: Colors.amber), onRatingUpdate: (rating)=> setState(() {
-                              this.rating = rating;
-                            })),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        especificacao(
+                                                            context,
+                                                            usermodel
+                                                                .profissao);
+                                                      },
+                                                      child: Text(
+                                                          'Especificações Técnicas')),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  RatingBar.builder(
+                                                      initialRating: media,
+                                                      allowHalfRating: true,
+                                                      ignoreGestures: true,
+                                                      itemBuilder: (context,
+                                                              _) =>
+                                                          const Icon(Icons.star,
+                                                              color:
+                                                                  Colors.amber),
+                                                      onRatingUpdate:
+                                                          (value) {}),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Row(
+                                                  children: [
+                                                    Text(
+                                                        '${widget.quatidade} avaliações'),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .fromLTRB(70, 0, 0, 0),
+                                                      child: Text(media
+                                                          .toStringAsPrecision(
+                                                              2)),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           actions: [
@@ -173,28 +204,153 @@ class _PagePrincipalState extends State<PagePrincipal> {
       throw Exception('erro');
     }
   }
-  String retornarTrabalho(int idtrabalho){
+
+  Future<double> avaliacao(int id) async {
+    double media = 0;
+    var url = Uri.parse('http://192.168.53.110/mao/index.php/avaliacao/$id');
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      List avaliacao = json.decode(response.body);
+      avaliacao.forEach((value) {
+        media += value['avaliacao'];
+      });
+      media = media / avaliacao.length;
+      if (avaliacao.isEmpty) {
+        media = 0;
+      }
+      widget.quatidade = avaliacao.length;
+      return media;
+    } else {
+      throw Exception('erro');
+    }
+  }
+
+  String retornarTrabalho(int idtrabalho) {
     late String trabalho;
 
-    if(idtrabalho == 1){
+    if (idtrabalho == 1) {
       trabalho = 'Engenheiro Agrônomo ';
-     }else if(idtrabalho == 2){
+    } else if (idtrabalho == 2) {
       trabalho = "Agrimensor";
-     }else if(idtrabalho == 3){
+    } else if (idtrabalho == 3) {
       trabalho = 'Engenheiro Hídrico';
-     }else if (idtrabalho == 4){
+    } else if (idtrabalho == 4) {
       trabalho = 'Gestão Ambiental';
-     }else if (idtrabalho == 5){
+    } else if (idtrabalho == 5) {
       trabalho = 'Serviços de Drone';
-     }else if(idtrabalho == 6){
+    } else if (idtrabalho == 6) {
       trabalho = 'Técnico Agrícola';
-     }else if( idtrabalho == 7){
+    } else if (idtrabalho == 7) {
       trabalho = 'Veterinário';
-     }else{
+    } else {
       trabalho = 'Zootecnista';
-     }
-
+    }
 
     return trabalho;
+  }
+
+  void especificacao(BuildContext context, String texto) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Especificação"),
+          content: Text(texto),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  _menu(){
+    if(widget.tipo_cadastro == '1'){
+     return Drawer(
+          backgroundColor: Color.fromRGBO(185, 136, 62, 1),
+          child: Column(children: [
+            ListTile(
+              title: Center(
+                child: Text(
+                  'Bem vindo ',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Center(
+                child: Text(widget.nome,
+                    style: TextStyle(
+                        fontSize: 15, color: Color.fromARGB(255, 66, 33, 23))),
+              ),
+            ),
+            ListTile(
+              title: Text('Pagina de Contratação'),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PagePrincipal(widget.id, widget.nome, widget.tipo_cadastro))),
+            ),
+            ListTile(
+              title: Text('Historico de Contratação'),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PageHistoricoContratacao(widget.id, widget.nome, widget.tipo_cadastro))),
+            )
+          ]));
+    }else{
+      return Drawer(
+          backgroundColor: Color.fromRGBO(185, 136, 62, 1),
+          child: Column(children: [
+            ListTile(
+              title: Center(
+                child: Text(
+                  'Bem vindo ',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+            ListTile(
+              title: Center(
+                child: Text(widget.nome,
+                    style: TextStyle(
+                        fontSize: 15, color: Color.fromARGB(255, 66, 33, 23))),
+              ),
+            ),ListTile(
+              title: Text('Historico de Contratos'),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PagePrincipalPrestador(widget.id, widget.nome, widget.tipo_cadastro))),
+            ),
+            ListTile(
+              title: Text('Pagina de Contratação'),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PagePrincipal(widget.id, widget.nome, widget.tipo_cadastro))),
+            ),
+            ListTile(
+              title: Text('Historico de Contratação'),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          PageHistoricoContratacao(widget.id, widget.nome, widget.tipo_cadastro))),
+            )
+          ]));
     }
+  }
+
+
 }

@@ -5,7 +5,8 @@ class PagePrincipalPrestador extends StatefulWidget {
 
   int id;
   String nome;
-  PagePrincipalPrestador(this.id, this.nome);
+  String tipo_cadastro;
+  PagePrincipalPrestador(this.id, this.nome, this.tipo_cadastro);
   @override
   State<PagePrincipalPrestador> createState() => _PagePrincipalPrestadorState();
 }

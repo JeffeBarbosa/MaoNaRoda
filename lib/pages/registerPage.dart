@@ -43,14 +43,14 @@ void alertRegister(BuildContext context, String texto) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Erro ao Registrar"),
+        title: const Text("Erro ao Registrar"),
         content: Text(texto),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text("OK"),
+            child: const Text("OK"),
           ),
         ],
       );
@@ -62,6 +62,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool value = false;
   String $buttonName = "Cadastrar-se";
   int $tipo_cadastro = 1;
+  late int idade;
+  late int telefone;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController enderecoController = TextEditingController();
@@ -146,31 +148,35 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: passwordController,
             ),
           ),
-        ),Row(
+        ),
+        Row(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: 150,
-                  child: TextFormField(
-                    keyboardType:  TextInputType.number,
-                    decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                    labelText: 'Insira sua idade'), controller: idadeController, 
-                  ),
-                  
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      labelText: 'Insira sua idade'),
+                  controller: idadeController,
+                ),
               ),
             ),
             Container(
-              width: 220,
-              child: TextFormField(
-                keyboardType:  TextInputType.number,
-                decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                labelText: 'Insira seu Telefone'), controller: telefoneController, 
-            )),
+                width: 220,
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      labelText: 'Insira seu Telefone'),
+                  controller: telefoneController,
+                )),
           ],
         ),
-  
-
         Center(
           child: Padding(
             padding: EdgeInsets.fromLTRB(50, 0, 0, 0),
@@ -228,17 +234,29 @@ class _RegisterPageState extends State<RegisterPage> {
                     borderRadius: BorderRadius.circular(20)),
               ),
               onPressed: () async {
-                int tipoCadastro = $tipo_cadastro;
-                int idade = int.parse(idadeController.text);
-                int telefone = int.parse(telefoneController.text);
+                if (idadeController.text.isNotEmpty &&
+                    telefoneController.text.isNotEmpty) {
+                  idade = int.parse(idadeController.text);
+                  telefone = int.parse(telefoneController.text);
+                }
 
-                
-                if (emailController.text.isNotEmpty &&
-                    enderecoController.text.isNotEmpty &&
-                    passwordController.text.isNotEmpty &&
-                    nameController.text.isNotEmpty
-                    && idadeController.text.isNotEmpty && telefoneController.text.isNotEmpty) {
-                  postData(tipoCadastro, emailController.text, enderecoController.text, passwordController.text, nameController.text, idade, telefone);
+                if (emailController.text.isEmpty &&
+                    enderecoController.text.isEmpty &&
+                    passwordController.text.isEmpty &&
+                    nameController.text.isEmpty &&
+                    idadeController.text.isEmpty &&
+                    telefoneController.text.isEmpty) {
+                  alertRegister(context,
+                      "Preencha todos os campos obrigatorios para o registro");
+                } else {
+                  postData(
+                      $tipo_cadastro,
+                      emailController.text,
+                      enderecoController.text,
+                      passwordController.text,
+                      nameController.text,
+                      idade,
+                      telefone);
                   if (value == true) {
                     showDialog(
                         context: context,
@@ -250,9 +268,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           builder: (context) => const LoginPage()),
                     );
                   }
-                } else {
-                  alertRegister(context,
-                      "Preencha todos os campos obrigatorios para o registro");
                 }
               },
               child: Text($buttonName),
